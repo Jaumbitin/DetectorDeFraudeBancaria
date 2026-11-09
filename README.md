@@ -1,22 +1,38 @@
-# 🏦 Detector de Fraude Bancária
+# Detector de Fraude Bancária
 
-Este repositório contém um modelo de classificação de Machine Learning desenvolvido em **Java** utilizando a **API do Weka**. O objetivo principal do projeto é analisar transações financeiras e classificar possíveis atividades fraudulentas utilizando algoritmos baseados em árvores de decisão.
+Demonstração didática de classificação em **Java 17 e Weka 3.8.6**, usando uma árvore de decisão J48 e transações sintéticas definidas no próprio código.
 
-## 🚀 Tecnologias Utilizadas
+## Como funciona
 
-- **Java** 
-- **Weka API** (Waikato Environment for Knowledge Analysis)
-- **IntelliJ IDEA** (Ambiente de desenvolvimento recomendado)
+1. Define os atributos valor, origem (`nacional` ou `internacional`) e classe (`sim` ou `nao`).
+2. Adiciona 11 exemplos sintéticos de treinamento.
+3. Treina o classificador J48.
+4. Classifica 10 transações de exemplo e imprime os resultados no terminal.
 
-## ⚙️ Como o Modelo Funciona
+O programa atual **não carrega dados bancários de CSV ou ARFF**. O arquivo `data/iris.arff` existe, mas não é usado pela classe principal.
 
-O detector utiliza algoritmos de classificação (como Árvores de Decisão) treinados a partir de um conjunto de dados bancários (datasets em formato `.arff` ou `.csv`). Através da API do Weka integrada ao código Java, o sistema constrói um modelo de predição capaz de identificar os padrões de anomalias que caracterizam uma fraude com base nos atributos de entrada.
+## Executar
 
-## 📁 Estrutura Base do Projeto
+Pré-requisitos: **JDK 17 ou superior** e **Maven instalado**. O repositório não inclui Maven Wrapper.
+
+```powershell
+git clone https://github.com/Jaumbitin/DetectorDeFraudeBancaria.git
+cd DetectorDeFraudeBancaria
+mvn compile dependency:copy-dependencies
+java -cp 'target/classes;target/dependency/*' DetectorDeFraudeBancaria
+```
+
+No Linux/macOS, use `:` no classpath: `java -cp 'target/classes:target/dependency/*' DetectorDeFraudeBancaria`.
+No IntelliJ, importe o `pom.xml` e execute o método `main` da classe `DetectorDeFraudeBancaria`.
+
+## Estrutura
 
 ```text
-📦 DetectorDeFraudeBancaria
- ┣ 📂 src               # Código-fonte em Java
- ┣ 📂 data              # Datasets de treinamento e teste
- ┣ 📂 lib               # Bibliotecas externas (weka.jar)
- ┗ 📜 README.md         # Documentação do projeto
+pom.xml                                      Dependência do Weka e configuração Java
+src/main/java/DetectorDeFraudeBancaria.java    Treinamento e exemplos de classificação
+data/iris.arff                               Dataset adicional, não utilizado
+```
+
+## Limitações e validação
+
+Não há testes automatizados, separação entre treino e teste, validação cruzada ou métricas de desempenho. Os exemplos impressos demonstram o uso da biblioteca; não medem a qualidade de um detector real. O projeto não está validado para decisões financeiras ou identificação de fraude em produção.
